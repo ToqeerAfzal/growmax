@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 10% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 33 98% 52%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 33 98% 52%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 25%;
+    --input: 0 0% 20%;
+    --ring: 33 98% 52%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-900 via-black to-gray-800 text-foreground antialiased bg-black;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.feature-card {
+  transition: all 0.2s ease-in-out;
+}
+
+@layer components {
+  .gradient-gold-text {
+    background: linear-gradient(135deg, #F9DB9A 0%, #F67300 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+  }
+  
+  .btn-gold {
+    @apply inline-block text-black font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg border-none hover:shadow-2xl hover:shadow-orange-500/30 hover:-translate-y-px;
+    background: linear-gradient(135deg, #F9DB9A 0%, #F67300 100%);
+  }
+
+  .btn-outline {
+    /* @apply inline-block font-semibold py-3 px-6 rounded-lg transition-all duration-300; */
+    @apply rounded-lg;
+    border: 2px solid rgba(249, 219, 154, 0.8);
+    color: #F9DB9A;
+    /* background: rgba(0, 0, 0, 0.3); */
+    /* backdrop-filter: blur(10px); */
+  }
+  
+  .btn-outline:hover {
+    background: linear-gradient(135deg, #F9DB9A 0%, #F67300 100%);
+    color: #0a0a0a;
+    border-color: transparent;
+  }
+  
+  .feature-card {
+    @apply bg-black/50 border border-orange-300/20 rounded-2xl p-6 transition-all duration-300;
+  }
+  
+  .feature-card:hover {
+    /* @apply border-orange-300/40 translate-y-1; */
+    border-color: rgba(253, 186, 116, 0.4);
+    /* transform: translateY(-0.25rem); */
+    /* transition: border-color 0.2s ease, transform 0.2s ease; */
+    border: 1px solid rgba(249, 219, 154, 0.8);
+  }
+
+  .stat-card {
+    @apply bg-black/60 border border-white/10 rounded-lg p-4 text-center;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  }
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #d97706, #b45309);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

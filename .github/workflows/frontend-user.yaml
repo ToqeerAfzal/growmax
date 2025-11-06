@@ -1,0 +1,16 @@
+name: Pipeline to trigger Frontend User Service
+
+on:
+  push:
+    branches: [ "live" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install sshpass
+        run: sudo apt-get update -y && sudo apt-get install sshpass -y
+
+      - name: SSH into dev env
+        run: sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /data/prod/frontend/mlm-frontend && bash build.sh"
