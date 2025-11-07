@@ -1,0 +1,6 @@
+{
+  "BACKEND_URL": "http://localhost:6070/",
+  "API_URL_USER_ONBOARDING": "http://localhost:6070/api/",
+  "SECRETKEY": "htfvyuggybuygjhgu35465sefygu",
+  "baseURL": "http://localhost:8081"
+}

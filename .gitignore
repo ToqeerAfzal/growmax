@@ -27,5 +27,4 @@ dist-ssr/
 *.sw?
 
 # Ignore config folder and package-lock.json
-config/
 package-lock.json

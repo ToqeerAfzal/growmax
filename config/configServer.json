@@ -1,0 +1,6 @@
+{
+  "BACKEND_URL": "https://api.growmaxglobal.com/",
+  "API_URL_USER_ONBOARDING": "https://api.growmaxglobal.com/api/",
+  "SECRETKEY": "htfvyuggybuygjhgu35465sefygu",
+  "baseURL": "https://app.growmaxglobal.com"
+}
