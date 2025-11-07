@@ -287,7 +287,7 @@ export default function CryptoDashboard() {
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
-                </div>                <div className="text-3xl font-extrabold">$...{/* price will show on chart scale */}</div>
+                </div>                <div className="text-3xl font-extrabold">$3890</div>
                 <div className="ml-2 px-2 py-1 bg-green-100 text-green-700 rounded-md text-sm">+7.2%</div>
               </div>
 
