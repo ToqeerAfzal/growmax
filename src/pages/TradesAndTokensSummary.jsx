@@ -7,18 +7,27 @@ const TradesAndTokensSummary = () => {
   const [loadingTokens, setLoadingTokens] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTrades = async () => {
+  const fetchTrades = async (tempLabel) => {
     try {
-      const res = await fetch('http://47.128.251.90:6070/api/trades');
+      const res = await fetch(`http://47.128.251.90:6070/api/trades?range=${tempLabel ? tempLabel : intervalLabel}`);
       if (!res.ok) throw new Error('Failed to fetch trades');
       const data = await res.json();
-      setTrades(data || []);
+      debugger;
+      setTrades(data?.data || []);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoadingTrades(false);
     }
   };
+
+  const INTERVAL_MAP = {
+    "1d": "1d",
+    "7d": "7d",
+    "30d": "30d"
+  };
+
+  const [intervalLabel, setIntervalLabel] = useState("1d");
 
   const fetchTokenSummary = async () => {
     try {
@@ -44,11 +53,10 @@ const TradesAndTokensSummary = () => {
 
   const SideBadge = ({ side }) => (
     <span
-      className={`px-3 py-1 text-sm font-medium rounded-full border ${
-        side === 'Long'
-          ? 'text-green-600 bg-green-50 border-green-200'
-          : 'text-red-500 bg-red-50 border-red-200'
-      }`}
+      className={`px-3 py-1 text-sm font-medium rounded-full border ${side === 'Long'
+        ? 'text-green-600 bg-green-50 border-green-200'
+        : 'text-red-500 bg-red-50 border-red-200'
+        }`}
     >
       {side}
     </span>
@@ -61,6 +69,17 @@ const TradesAndTokensSummary = () => {
         <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-900">Closed Trades Feed</h2>
+            <div className="flex items-center gap-2">
+              {Object.keys(INTERVAL_MAP).map((label) => (
+                <button
+                  key={label}
+                  onClick={() => { setIntervalLabel(label); fetchTrades(label); }}
+                  className={`px-3 py-1 rounded-lg border ${intervalLabel === label ? 'bg-amber-400 text-white' : 'bg-white'}`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
             <a href="#" className="text-orange-500 text-sm font-medium hover:underline">
               See All
             </a>

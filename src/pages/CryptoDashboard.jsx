@@ -46,7 +46,7 @@ export default function CryptoDashboard() {
   const chartRef = useRef();
   const candleSeriesRef = useRef();
   const [selected, setSelected] = useState("BTC");
-  const [intervalLabel, setIntervalLabel] = useState("5h");
+  const [intervalLabel, setIntervalLabel] = useState("1d");
   const [orderBook, setOrderBook] = useState({ bids: [], asks: [] });
   const [buyPercent, setBuyPercent] = useState(45);
   const klineWsRef = useRef(null);
@@ -135,7 +135,7 @@ export default function CryptoDashboard() {
     if (!chartRef.current || !candleSeriesRef.current) return;
 
     const binSymbol = symbolToBinance(selected);
-    const interval = INTERVAL_MAP[intervalLabel] || "1h";
+    const interval = INTERVAL_MAP[intervalLabel] || "1d";
 
     let mounted = true;
 
@@ -261,28 +261,48 @@ export default function CryptoDashboard() {
     <div className="flex gap-6 p-6 bg-gray-50 min-h-screen">
       {/* Left: chart panel */}
       <div className="flex-1 bg-white rounded-2xl p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-4">
-            <div className="px-4 py-2 bg-amber-50 rounded-lg font-semibold text-amber-600">{selected}/USDT</div>
-            <div className="text-3xl font-extrabold">$...{/* price will show on chart scale */}</div>
-            <div className="ml-2 px-2 py-1 bg-green-100 text-green-700 rounded-md text-sm">+7.2%</div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            {Object.keys(INTERVAL_MAP).map((label) => (
-              <button
-                key={label}
-                onClick={() => setIntervalLabel(label)}
-                className={`px-3 py-1 rounded-lg border ${intervalLabel === label ? 'bg-amber-400 text-white' : 'bg-white'}`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         <div className="flex gap-4">
           <div className="w-[70%]">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <select
+                    value={selected}
+                    onChange={(e) => setSelected(e.target.value)}
+                    className="appearance-none px-4 py-2 bg-amber-50 rounded-lg font-semibold text-amber-600 pr-8 cursor-pointer focus:outline-none"
+                  >
+                    {TOKEN_LIST.map((t) => (
+                      <option key={t} value={t}>
+                        {t}/USDT
+                      </option>
+                    ))}
+                  </select>
+                  {/* dropdown arrow */}
+                  <svg
+                    className="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 text-amber-600 pointer-events-none"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>                <div className="text-3xl font-extrabold">$...{/* price will show on chart scale */}</div>
+                <div className="ml-2 px-2 py-1 bg-green-100 text-green-700 rounded-md text-sm">+7.2%</div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {Object.keys(INTERVAL_MAP).map((label) => (
+                  <button
+                    key={label}
+                    onClick={() => setIntervalLabel(label)}
+                    className={`px-3 py-1 rounded-lg border ${intervalLabel === label ? 'bg-amber-400 text-white' : 'bg-white'}`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="flex">
               <div className="w-12 flex flex-col gap-3 pt-6">
                 {/* left vertical tool icons (placeholder) */}
@@ -312,7 +332,7 @@ export default function CryptoDashboard() {
 
             <div className="flex-1 overflow-auto mt-2">
               {/* asks (sell) shown first in red */}
-              {orderBook.asks.map((a, i) => (
+              {orderBook.asks.slice(0, 5).map((a, i) => (
                 <div key={`ask-${i}`} className="flex items-center text-sm py-2 border-b">
                   <div className="w-1/3 text-red-500">{fmt(a.price)}</div>
                   <div className="w-1/3 text-center">{fmt(a.qty)}</div>
@@ -324,7 +344,7 @@ export default function CryptoDashboard() {
               <div className="py-2 text-center text-sm font-medium">{selected}/USDT</div>
 
               {/* bids (buy) shown in green */}
-              {orderBook.bids.map((b, i) => (
+              {orderBook.bids.slice(0, 5).map((b, i) => (
                 <div key={`bid-${i}`} className="flex items-center text-sm py-2 border-b">
                   <div className="w-1/3 text-green-600">{fmt(b.price)}</div>
                   <div className="w-1/3 text-center">{fmt(b.qty)}</div>
@@ -342,19 +362,6 @@ export default function CryptoDashboard() {
                 <div className="text-green-700">Buy: {buyPercent}%</div>
                 <div className="text-red-600">Sell: {100 - buyPercent}%</div>
               </div>
-            </div>
-
-            {/* token selector */}
-            <div className="mt-4 flex gap-2 flex-wrap">
-              {TOKEN_LIST.map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setSelected(t)}
-                  className={`px-3 py-1 rounded-lg text-sm ${selected === t ? 'bg-amber-300 text-white' : 'bg-gray-100'}`}
-                >
-                  {t}
-                </button>
-              ))}
             </div>
           </div>
         </div>

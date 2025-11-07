@@ -72,7 +72,7 @@ const App = () => (
           <BrowserRouter>
             <Suspense fallback={<PageLoader />}>
               <Routes>
-                <Route path="/" element={<UpdatedUserLogin />} />
+                <Route path="/" element={<LiveTerminals />} />
                 <Route path="/liveterminals" element={<LiveTerminals />} />
 
                 {/* User Routes */}

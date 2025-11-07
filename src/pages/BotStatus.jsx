@@ -48,7 +48,7 @@ const BotStatus = () => {
     setStats(generateRandomData());
     const interval = setInterval(() => {
       setStats(generateRandomData());
-    }, 2000); // every 2 seconds
+    }, 10000); // every 2 seconds
 
     return () => clearInterval(interval);
   }, []);
