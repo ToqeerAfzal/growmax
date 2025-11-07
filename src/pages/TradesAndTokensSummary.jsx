@@ -66,7 +66,7 @@ const TradesAndTokensSummary = () => {
     <div className="bg-gradient-to-br from-orange-50 to-white flex items-center justify-center p-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
         {/* Closed Trades Feed */}
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 max-h-[600px] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-900">Closed Trades Feed</h2>
             <div className="flex items-center gap-2">
@@ -136,7 +136,7 @@ const TradesAndTokensSummary = () => {
         </div>
 
         {/* Tokens Summary */}
-        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+        <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 max-h-[600px] overflow-y-auto">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-900">Tokens Summary</h2>
             <a href="#" className="text-orange-500 text-sm font-medium hover:underline">
